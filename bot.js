@@ -19,10 +19,6 @@ class DiscordBot {
         this.io.on('ready', (event) => {
             console.log('Logged in as %s - %s\n', self.io.username, self.io.id);
 
-            self.io.setPresence({
-                game: 'ur mum'
-            })
-
             if (self.io.servers === {}) {
                 self.io.acceptInvite(self.inviteURL, (obj) => {
                     console.log(obj);
@@ -53,11 +49,22 @@ class DiscordBot {
             this.sendMessage('nerds', channelID);
         } else if (command === 'talk') {
             CleverBot.prepare(() => {
-            	self.chatBot.write(message, (response) => {
+            	self.chatBot.write(rest, (response) => {
             		self.sendMessage(response.message, channelID);
             	});
             });
+        } else if (command === 'play') {
+            this.playGame(rest);
         }
+    }
+
+    playGame(game) {
+        this.io.setPresence({
+            game: {
+                idle_since: 0,
+                name: game
+            }
+        })
     }
 
     sendMessage(message, channelID) {
