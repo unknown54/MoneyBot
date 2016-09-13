@@ -27,6 +27,10 @@ class DiscordBot {
         });
 
         this.io.on('message', (user, userID, channelID, message, event) => {
+            if (user === self.username) {
+                return;
+            }
+
             if (message === 'ping') {
                 self.io.sendMessage({
                     to: channelID,
@@ -64,7 +68,7 @@ class DiscordBot {
                 idle_since: 0,
                 name: game
             }
-        })
+        });
     }
 
     sendMessage(message, channelID) {
