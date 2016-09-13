@@ -1,6 +1,7 @@
 {
     "dependencies": {
         "discord.io": "",
-        "cleverbot-node": ""
+        "cleverbot-node": "",
+        "limiter": "~1.0.5"
     }
 }
