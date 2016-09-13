@@ -3,6 +3,7 @@ var CleverBot = require('cleverbot-node');
 
 class DiscordBot {
     constructor(token, inviteURL) {
+        this.commands = {};
         this.inviteURL = inviteURL;
         this.chatBot = new CleverBot;
         this.io = new Discord.Client({
@@ -10,7 +11,33 @@ class DiscordBot {
         });
 
         this.addHandlers();
+        this.addCommands();
         this.io.connect();
+    }
+
+    addCommands() {
+        var self = this;
+
+        this.commands = {
+            ask: (message, user, channelID) => {
+                var answers = ["Yes", "No"];
+                var answer = answers[Math.floor(Math.random() * 2)];
+                self.sendMessage('[Ask: ' + message + '] ' + answer, channelID);
+            },
+            nerds: (message, user, channelID) => {
+                self.sendMessage('nerds', channelID);
+            },
+            play: (message, user, channelID) => {
+                self.playGame(message);
+            },
+            talk: (message, user, channelID) => {
+                CleverBot.prepare(() => {
+                    self.chatBot.write(message, (response) => {
+                        self.sendMessage(response.message, channelID);
+                    });
+                });
+            }
+        }
     }
 
     addHandlers() {
@@ -49,16 +76,8 @@ class DiscordBot {
         command = command.substring(1, command.length);
         var rest = split.join(" ");
 
-        if (command === 'nerds') {
-            this.sendMessage('nerds', channelID);
-        } else if (command === 'talk') {
-            CleverBot.prepare(() => {
-            	self.chatBot.write(rest, (response) => {
-            		self.sendMessage(response.message, channelID);
-            	});
-            });
-        } else if (command === 'play') {
-            this.playGame(rest);
+        if (command in this.commands) {
+            this.commands[command](rest, user, channelID);
         }
     }
 
