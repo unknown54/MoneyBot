@@ -17,6 +17,10 @@ class DiscordBot {
         this.io.on('ready', function(event) {
             console.log('Logged in as %s - %s\n', self.io.username, self.io.id);
 
+            self.io.setPresence({
+                game: 'ur mum'
+            })
+
             if (self.io.servers === {}) {
                 self.io.acceptInvite(self.inviteURL, (obj) => {
                     console.log(obj);
@@ -39,7 +43,21 @@ class DiscordBot {
     }
 
     handleMessage(message, user, userID, channelID) {
+        var split = message.split(" ")
+        var command = String(split.splice(0, 1));
+        command = command.substring(1, command.length);
+        var rest = split.join(" ");
 
+        if (command === 'nerds') {
+            this.sendMessage('nerds', channelID);
+        }
+    }
+
+    sendMessage(message, channelID) {
+        this.io.sendMessage({
+            to: channelID,
+            message: message
+        });
     }
 }
 
