@@ -1,8 +1,10 @@
 var Discord = require('discord.io');
+var CleverBot = require('cleverbot-node');
 
 class DiscordBot {
     constructor(token, inviteURL) {
         this.inviteURL = inviteURL;
+        this.chatBot = new CleverBot;
         this.io = new Discord.Client({
             token: token
         });
@@ -43,6 +45,7 @@ class DiscordBot {
     }
 
     handleMessage(message, user, userID, channelID) {
+        var self = this;
         var split = message.split(" ")
         var command = String(split.splice(0, 1));
         command = command.substring(1, command.length);
@@ -50,6 +53,12 @@ class DiscordBot {
 
         if (command === 'nerds') {
             this.sendMessage('nerds', channelID);
+        } else if (command === 'talk') {
+            CleverBot.prepare(function() {
+            	self.chatBot.write(message, function(response) {
+            		self.sendMessage(response.message, channelID);
+            	});
+            });
         }
     }
 

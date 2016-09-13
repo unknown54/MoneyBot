@@ -1,5 +1,6 @@
 {
     "dependencies": {
-        "discord.io": ""
+        "discord.io": "",
+        "cleverbot-node": ""
     }
 }
