@@ -70,7 +70,6 @@ class DiscordBot {
     }
 
     handleMessage(message, user, userID, channelID) {
-        var self = this;
         var split = message.split(" ")
         var command = String(split.splice(0, 1));
         command = command.substring(1, command.length);
