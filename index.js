@@ -1,8 +1,10 @@
 var DiscordBot = require('./lib/bot').DiscordBot
 var config = require('./lib/config');
 
+var bot = null;
+
 config.load(config => {
-    var bot = new DiscordBot('', '', config);
+    bot = new DiscordBot('', '', config);
 });
 
 
