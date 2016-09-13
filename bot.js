@@ -16,7 +16,7 @@ class DiscordBot {
     addHandlers() {
         var self = this;
 
-        this.io.on('ready', function(event) {
+        this.io.on('ready', (event) => {
             console.log('Logged in as %s - %s\n', self.io.username, self.io.id);
 
             self.io.setPresence({
@@ -30,7 +30,7 @@ class DiscordBot {
             }
         });
 
-        this.io.on('message', function(user, userID, channelID, message, event) {
+        this.io.on('message', (user, userID, channelID, message, event) => {
             if (message === 'ping') {
                 self.io.sendMessage({
                     to: channelID,
@@ -52,8 +52,8 @@ class DiscordBot {
         if (command === 'nerds') {
             this.sendMessage('nerds', channelID);
         } else if (command === 'talk') {
-            CleverBot.prepare(function() {
-            	self.chatBot.write(message, function(response) {
+            CleverBot.prepare(() => {
+            	self.chatBot.write(message, (response) => {
             		self.sendMessage(response.message, channelID);
             	});
             });
