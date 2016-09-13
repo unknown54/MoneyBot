@@ -31,8 +31,6 @@ class DiscordBot {
         });
 
         this.io.on('message', function(user, userID, channelID, message, event) {
-            console.log('message');
-
             if (message === 'ping') {
                 self.io.sendMessage({
                     to: channelID,
