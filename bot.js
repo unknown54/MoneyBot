@@ -58,12 +58,7 @@ class DiscordBot {
                 return;
             }
 
-            if (message === 'ping') {
-                self.io.sendMessage({
-                    to: channelID,
-                    message: 'pong'
-                });
-            } else if (message.indexOf('$') === 0) {
+            if (message.indexOf('$') === 0) {
                 self.handleMessage(message, user, userID, channelID);
             }
         });
