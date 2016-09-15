@@ -2,6 +2,7 @@
     "dependencies": {
         "discord.io": "",
         "cleverbot-node": "",
-        "limiter": "~1.0.5"
+        "limiter": "~1.0.5",
+        "youtube-dl": "~1.11.1"
     }
 }
