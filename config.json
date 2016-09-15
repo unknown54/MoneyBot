@@ -1,3 +1,9 @@
 {
-    "weatherunderground": ""
+    "weatherunderground": "",
+    "servers": {
+        "": {
+            "name": "",
+            "inviteURL": ""
+        }
+    }
 }
