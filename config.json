@@ -1,5 +1,14 @@
 {
+    "token": "",
     "weatherunderground": "",
+    "commandRoles": {
+        "join": [],
+        "leave": [],
+        "youtube": [],
+        "testroles": [
+            "cool"
+        ]
+    },
     "servers": {
         "": {
             "name": "",
